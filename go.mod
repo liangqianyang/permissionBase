@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	github.com/apolloconfig/agollo/v4 v4.3.1
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/zeromicro/go-zero v1.6.2
 	github.com/zeromicro/zero-contrib/zrpc/registry/consul v0.0.0-20231030135404-af9ae855016f
 	google.golang.org/grpc v1.61.0

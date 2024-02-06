@@ -112,6 +112,7 @@ var PermissionBase_ServiceDesc = grpc.ServiceDesc{
 
 const (
 	UserBase_CreateUser_FullMethodName = "/permissionBase.UserBase/CreateUser"
+	UserBase_Login_FullMethodName      = "/permissionBase.UserBase/Login"
 )
 
 // UserBaseClient is the client API for UserBase service.
@@ -120,6 +121,8 @@ const (
 type UserBaseClient interface {
 	// CreateUser 创建用户
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	// Login 登录
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type userBaseClient struct {
@@ -139,12 +142,23 @@ func (c *userBaseClient) CreateUser(ctx context.Context, in *CreateUserRequest, 
 	return out, nil
 }
 
+func (c *userBaseClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, UserBase_Login_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserBaseServer is the server API for UserBase service.
 // All implementations must embed UnimplementedUserBaseServer
 // for forward compatibility
 type UserBaseServer interface {
 	// CreateUser 创建用户
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	// Login 登录
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	mustEmbedUnimplementedUserBaseServer()
 }
 
@@ -154,6 +168,9 @@ type UnimplementedUserBaseServer struct {
 
 func (UnimplementedUserBaseServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedUserBaseServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedUserBaseServer) mustEmbedUnimplementedUserBaseServer() {}
 
@@ -186,6 +203,24 @@ func _UserBase_CreateUser_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserBase_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserBaseServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserBase_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserBaseServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserBase_ServiceDesc is the grpc.ServiceDesc for UserBase service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +231,10 @@ var UserBase_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _UserBase_CreateUser_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _UserBase_Login_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

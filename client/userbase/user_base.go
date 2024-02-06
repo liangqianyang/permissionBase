@@ -17,10 +17,14 @@ type (
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest
 	CreateUserResponse       = permissionBase.CreateUserResponse
+	LoginRequest             = permissionBase.LoginRequest
+	LoginResponse            = permissionBase.LoginResponse
 
 	UserBase interface {
 		// CreateUser 创建用户
 		CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+		// Login 登录
+		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	}
 
 	defaultUserBase struct {
@@ -38,4 +42,10 @@ func NewUserBase(cli zrpc.Client) UserBase {
 func (m *defaultUserBase) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	client := permissionBase.NewUserBaseClient(m.cli.Conn())
 	return client.CreateUser(ctx, in, opts...)
+}
+
+// Login 登录
+func (m *defaultUserBase) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	client := permissionBase.NewUserBaseClient(m.cli.Conn())
+	return client.Login(ctx, in, opts...)
 }

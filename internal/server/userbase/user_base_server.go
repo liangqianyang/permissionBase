@@ -27,3 +27,9 @@ func (s *UserBaseServer) CreateUser(ctx context.Context, in *permissionBase.Crea
 	l := userbaselogic.NewCreateUserLogic(ctx, s.svcCtx)
 	return l.CreateUser(in)
 }
+
+// Login 登录
+func (s *UserBaseServer) Login(ctx context.Context, in *permissionBase.LoginRequest) (*permissionBase.LoginResponse, error) {
+	l := userbaselogic.NewLoginLogic(ctx, s.svcCtx)
+	return l.Login(in)
+}

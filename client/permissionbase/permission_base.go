@@ -17,6 +17,8 @@ type (
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest
 	CreateUserResponse       = permissionBase.CreateUserResponse
+	LoginRequest             = permissionBase.LoginRequest
+	LoginResponse            = permissionBase.LoginResponse
 
 	PermissionBase interface {
 		// CreatePermission 创建权限
