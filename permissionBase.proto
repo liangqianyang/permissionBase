@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package permissionBase;
+option go_package="./permissionBase";
+
+// 用户状态的枚举
+enum UserState {
+  USER_STATE_UNKNOWN = 0; // 未知
+  USER_STATE_DISABLE = -1; // 禁用
+  USER_STATE_ENABLE = 1; // 启用
+}
+
+// 创建用户的请求
+message CreateUserRequest {
+  string login_name = 1;
+  string nickname = 2;
+  string password = 3;
+  string mobile = 4;
+  string email = 5;
+  int64 gender = 6;
+}
+
+// 创建用户的响应
+message CreateUserResponse {
+  int64 id = 1;
+}
+
+// 创建权限的请求
+message CreatePermissionRequest {
+  string user_id = 1;
+  string permission_name = 2;
+  string permission_desc = 3;
+}
+
+// 创建权限的响应
+message CreatePermissionResponse {
+  int64 id = 1;
+}
+
+service PermissionBase {
+  // CreatePermission 创建权限
+  rpc CreatePermission(CreatePermissionRequest) returns(CreatePermissionResponse);
+}
+
+service UserBase {
+  // CreateUser 创建用户
+  rpc CreateUser(CreateUserRequest) returns(CreateUserResponse);
+}

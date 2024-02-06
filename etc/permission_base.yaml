@@ -1,0 +1,16 @@
+Name: permissionBase.rpc
+ListenOn: 0.0.0.0:8080
+TimeBeforeQuit: 20
+Apollo:
+  AppID: permissionBase.rpc
+  Cluster: default
+  Ip: 111.231.94.57:8070
+  Namespace: application
+  Secret: 1ad95f6d06c848da953c81007131cf6f
+  IsBackup: false
+Consul:
+  Host: 111.231.94.57:8500 # consul endpoint
+  Key: permissionBase.rpc # service name registered to Consul
+  Meta:
+    Protocol: grpc
+DataSourceName: root:18155371631@lf@(111.231.94.57:3306)/blog?charset=utf8
