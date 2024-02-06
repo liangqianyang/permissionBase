@@ -5,8 +5,18 @@ import (
 	"github.com/zeromicro/zero-contrib/zrpc/registry/consul"
 )
 
+type ApolloConf struct {
+	AppID     string
+	Cluster   string
+	Ip        string
+	Namespace string
+	Secret    string
+	IsBackup  bool
+}
+
 type Config struct {
 	zrpc.RpcServerConf
 	Consul         consul.Conf
 	DataSourceName string
+	Apollo         ApolloConf
 }

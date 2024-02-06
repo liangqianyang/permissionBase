@@ -4,9 +4,9 @@ TimeBeforeQuit: 20
 Apollo:
   AppID: permissionBase.rpc
   Cluster: default
-  Ip: 111.231.94.57:8070
+  Ip: http://111.231.94.57:8080
   Namespace: application
-  Secret: 1ad95f6d06c848da953c81007131cf6f
+  Secret: 87c7ff089beb4786961b0c9cb403a543
   IsBackup: false
 Consul:
   Host: 111.231.94.57:8500 # consul endpoint
