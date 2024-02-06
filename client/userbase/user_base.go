@@ -13,6 +13,8 @@ import (
 )
 
 type (
+	CreateMenuRequest        = permissionBase.CreateMenuRequest
+	CreateMenuResponse       = permissionBase.CreateMenuResponse
 	CreatePermissionRequest  = permissionBase.CreatePermissionRequest
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest

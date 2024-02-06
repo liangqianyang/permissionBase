@@ -10,6 +10,20 @@ enum UserState {
   USER_STATE_ENABLE = 1; // 启用
 }
 
+// 用户性别的枚举
+enum UserGender {
+  USER_Gender_UNKNOWN = 0; // 未知
+  USER_Gender_MALE = 1; // 男
+  USER_GENDER_FEMALE = 2; // 女
+}
+
+// 菜单状态的枚举
+enum MenuState {
+  MENU_STATE_UNKNOWN = 0; // 未知
+  MENU_STATE_DISABLE = -1; // 禁用
+  MENU_STATE_ENABLE = 1; // 启用
+}
+
 // 创建用户的请求
 message CreateUserRequest {
   string login_name = 1;
@@ -17,7 +31,7 @@ message CreateUserRequest {
   string password = 3;
   string mobile = 4;
   string email = 5;
-  int64 gender = 6;
+  UserGender gender = 6;
 }
 
 // 创建用户的响应
@@ -44,12 +58,26 @@ message CreatePermissionRequest {
   string permission_desc = 3;
 }
 
+message CreateMenuRequest {
+  int64 parent_id = 1;
+  string name = 2;
+  string icon = 3;
+  string path = 4;
+  int64 sort = 5;
+}
+
+message CreateMenuResponse {
+
+}
+
 // 创建权限的响应
 message CreatePermissionResponse {
   int64 id = 1;
 }
 
 service PermissionBase {
+  // CreateMenu 创建菜单
+  rpc CreateMenu(CreateMenuRequest) returns(CreateMenuResponse);
   // CreatePermission 创建权限
   rpc CreatePermission(CreatePermissionRequest) returns(CreatePermissionResponse);
 }

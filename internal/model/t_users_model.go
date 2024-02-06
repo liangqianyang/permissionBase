@@ -1,6 +1,7 @@
 package model
 
 import (
+	"context"
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
@@ -23,7 +24,7 @@ type Users struct {
 }
 
 // CheckUnique 检查用户是否唯一
-func (m *Users) CheckUnique(svcCtx *svc.ServiceContext, in *pb.CreateUserRequest) error {
+func (m *Users) CheckUnique(ctx context.Context, svcCtx *svc.ServiceContext, in *pb.CreateUserRequest) error {
 	var count int64
 	svcCtx.Db.Model(&Users{}).Where(&Users{LoginName: in.LoginName}).Or(&Users{Mobile: in.Mobile}).Or(&Users{Mobile: in.Email}).Count(&count)
 	if count > 0 {
@@ -33,7 +34,7 @@ func (m *Users) CheckUnique(svcCtx *svc.ServiceContext, in *pb.CreateUserRequest
 }
 
 // CheckLogin 检查用户登录
-func (m *Users) CheckLogin(svcCtx *svc.ServiceContext, in *pb.LoginRequest) (*Users, error) {
+func (m *Users) CheckLogin(ctx context.Context, svcCtx *svc.ServiceContext, in *pb.LoginRequest) (*Users, error) {
 	var count int64
 	svcCtx.Db.Model(&Users{}).Where("login_name = ? AND state = ?", in.LoginName, int64(pb.UserState_USER_STATE_ENABLE)).Count(&count)
 	if count == 0 {

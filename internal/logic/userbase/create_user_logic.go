@@ -33,13 +33,13 @@ func (l *CreateUserLogic) CreateUser(in *pb.CreateUserRequest) (*pb.CreateUserRe
 		NickName:  in.Nickname,
 		Mobile:    in.Mobile,
 		Email:     in.Email,
-		Gender:    in.Gender,
+		Gender:    int64(in.Gender),
 		State:     int64(pb.UserState_USER_STATE_ENABLE),
 	}
 
-	err := newUser.CheckUnique(l.svcCtx, in)
+	err := newUser.CheckUnique(l.ctx, l.svcCtx, in)
 
-	if err := newUser.CheckUnique(l.svcCtx, in); err != nil {
+	if err := newUser.CheckUnique(l.ctx, l.svcCtx, in); err != nil {
 		logc.Errorf(l.ctx, "create user failed: user already exists")
 		return nil, errors.New("user already exists")
 	}

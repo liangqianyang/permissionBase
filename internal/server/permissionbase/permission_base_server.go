@@ -22,6 +22,12 @@ func NewPermissionBaseServer(svcCtx *svc.ServiceContext) *PermissionBaseServer {
 	}
 }
 
+// CreateMenu 创建菜单
+func (s *PermissionBaseServer) CreateMenu(ctx context.Context, in *permissionBase.CreateMenuRequest) (*permissionBase.CreateMenuResponse, error) {
+	l := permissionbaselogic.NewCreateMenuLogic(ctx, s.svcCtx)
+	return l.CreateMenu(in)
+}
+
 // CreatePermission 创建权限
 func (s *PermissionBaseServer) CreatePermission(ctx context.Context, in *permissionBase.CreatePermissionRequest) (*permissionBase.CreatePermissionResponse, error) {
 	l := permissionbaselogic.NewCreatePermissionLogic(ctx, s.svcCtx)

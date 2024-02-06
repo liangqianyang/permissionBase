@@ -13,6 +13,8 @@ import (
 )
 
 type (
+	CreateMenuRequest        = permissionBase.CreateMenuRequest
+	CreateMenuResponse       = permissionBase.CreateMenuResponse
 	CreatePermissionRequest  = permissionBase.CreatePermissionRequest
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest
@@ -21,6 +23,8 @@ type (
 	LoginResponse            = permissionBase.LoginResponse
 
 	PermissionBase interface {
+		// CreateMenu 创建菜单
+		CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error)
 		// CreatePermission 创建权限
 		CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
 	}
@@ -34,6 +38,12 @@ func NewPermissionBase(cli zrpc.Client) PermissionBase {
 	return &defaultPermissionBase{
 		cli: cli,
 	}
+}
+
+// CreateMenu 创建菜单
+func (m *defaultPermissionBase) CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.CreateMenu(ctx, in, opts...)
 }
 
 // CreatePermission 创建权限
