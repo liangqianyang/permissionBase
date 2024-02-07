@@ -13,4 +13,3 @@ Consul:
   Key: permissionBase.rpc # service name registered to Consul
   Meta:
     Protocol: grpc
-DataSourceName: root:18155371631@lf@(111.231.94.57:3306)/blog?charset=utf8
