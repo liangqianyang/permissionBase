@@ -36,7 +36,7 @@ func (m *Users) CheckUnique(ctx context.Context, svcCtx *svc.ServiceContext, in 
 // CheckLogin 检查用户登录
 func (m *Users) CheckLogin(ctx context.Context, svcCtx *svc.ServiceContext, in *pb.LoginRequest) (*Users, error) {
 	var count int64
-	svcCtx.Db.Model(&Users{}).Where("login_name = ? AND state = ?", in.Username, int64(pb.UserState_USER_STATE_ENABLE)).Count(&count)
+	svcCtx.Db.Model(&Users{}).Where("username = ? AND state = ?", in.Username, int64(pb.UserState_USER_STATE_ENABLE)).Count(&count)
 	if count == 0 {
 		return nil, errors.New("user not exists")
 	}
