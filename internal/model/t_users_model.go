@@ -12,7 +12,7 @@ import (
 
 type Users struct {
 	Id        uint64    `gorm:"primaryKey;autoIncrement;column:id;type:bigint;not null" json:"id"` // 主键
-	LoginName string    `gorm:"column:login_name" json:"login_name"`                               // 登录名
+	Username  string    `gorm:"column:username" json:"username"`                                   // 登录名
 	NickName  string    `gorm:"column:nickname" json:"nickname"`                                   // 昵称
 	Password  string    `gorm:"column:password" json:"password"`                                   // 密码
 	Mobile    string    `gorm:"column:mobile" json:"mobile"`                                       // 手机号
@@ -26,7 +26,7 @@ type Users struct {
 // CheckUnique 检查用户是否唯一
 func (m *Users) CheckUnique(ctx context.Context, svcCtx *svc.ServiceContext, in *pb.CreateUserRequest) error {
 	var count int64
-	svcCtx.Db.Model(&Users{}).Where(&Users{LoginName: in.LoginName}).Or(&Users{Mobile: in.Mobile}).Or(&Users{Mobile: in.Email}).Count(&count)
+	svcCtx.Db.Model(&Users{}).Where(&Users{Username: in.Username}).Or(&Users{Mobile: in.Mobile}).Or(&Users{Mobile: in.Email}).Count(&count)
 	if count > 0 {
 		return errors.New("user already exists")
 	}
@@ -36,7 +36,7 @@ func (m *Users) CheckUnique(ctx context.Context, svcCtx *svc.ServiceContext, in 
 // CheckLogin 检查用户登录
 func (m *Users) CheckLogin(ctx context.Context, svcCtx *svc.ServiceContext, in *pb.LoginRequest) (*Users, error) {
 	var count int64
-	svcCtx.Db.Model(&Users{}).Where("login_name = ? AND state = ?", in.LoginName, int64(pb.UserState_USER_STATE_ENABLE)).Count(&count)
+	svcCtx.Db.Model(&Users{}).Where("login_name = ? AND state = ?", in.Username, int64(pb.UserState_USER_STATE_ENABLE)).Count(&count)
 	if count == 0 {
 		return nil, errors.New("user not exists")
 	}
@@ -49,7 +49,7 @@ func (m *Users) CheckLogin(ctx context.Context, svcCtx *svc.ServiceContext, in *
 	// 将哈希值切片转换为十六进制格式的字符串
 	hashStr := hex.EncodeToString(hash)
 	user := &Users{}
-	svcCtx.Db.Model(&Users{}).Where("login_name = ? AND password = ?", in.LoginName, hashStr).First(user)
+	svcCtx.Db.Model(&Users{}).Where("username = ? AND password = ?", in.Username, hashStr).First(user)
 	if user.Id == 0 {
 		return nil, errors.New("password error")
 	}

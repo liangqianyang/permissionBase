@@ -36,7 +36,7 @@ func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 		return nil, err
 	}
 
-	token, err := l.generateLoginToken(user.LoginName)
+	token, err := l.generateLoginToken(user.Username)
 	if err != nil {
 		return nil, errors.New("generate token failed")
 	}
@@ -44,10 +44,10 @@ func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	context.WithValue(l.ctx, "user_id", int64(user.Id))
 	context.WithValue(l.ctx, "nick_name", user.NickName)
 	return &pb.LoginResponse{
-		Id:        int64(user.Id),
-		LoginName: user.LoginName,
-		Nickname:  user.NickName,
-		Token:     token,
+		Id:       int64(user.Id),
+		Username: user.Username,
+		Nickname: user.NickName,
+		Token:    token,
 	}, nil
 }
 

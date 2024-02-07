@@ -5,8 +5,8 @@ package server
 
 import (
 	"context"
-	userbaselogic "github.com/liangqianyang/permissionBase/internal/logic/userbase"
 
+	"github.com/liangqianyang/permissionBase/internal/logic/userbase"
 	"github.com/liangqianyang/permissionBase/internal/svc"
 	"github.com/liangqianyang/permissionBase/pb/permissionBase"
 )

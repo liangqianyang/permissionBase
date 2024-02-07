@@ -29,12 +29,12 @@ func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 // CreateUser 创建用户
 func (l *CreateUserLogic) CreateUser(in *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	newUser := &model.Users{
-		LoginName: in.LoginName,
-		NickName:  in.Nickname,
-		Mobile:    in.Mobile,
-		Email:     in.Email,
-		Gender:    int64(in.Gender),
-		State:     int64(pb.UserState_USER_STATE_ENABLE),
+		Username: in.Username,
+		NickName: in.Nickname,
+		Mobile:   in.Mobile,
+		Email:    in.Email,
+		Gender:   int64(in.Gender),
+		State:    int64(pb.UserState_USER_STATE_ENABLE),
 	}
 
 	err := newUser.CheckUnique(l.ctx, l.svcCtx, in)
