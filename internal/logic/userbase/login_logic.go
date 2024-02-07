@@ -31,7 +31,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 // Login 登录
 func (l *LoginLogic) Login(in *pb.LoginRequest) (*pb.LoginResponse, error) {
 	userModel := &model.Users{}
-	user, err := userModel.CheckLogin(l.svcCtx, in)
+	user, err := userModel.CheckLogin(l.ctx, l.svcCtx, in)
 	if err != nil {
 		return nil, err
 	}
