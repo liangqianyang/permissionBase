@@ -5,11 +5,11 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/qy-blog/permissionBase/internal/config"
-	permissionServer "github.com/qy-blog/permissionBase/internal/server/permissionbase"
-	userServer "github.com/qy-blog/permissionBase/internal/server/userbase"
-	"github.com/qy-blog/permissionBase/internal/svc"
-	"github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/internal/config"
+	permissionServer "github.com/liangqianyang/permissionBase/internal/server/permissionbase"
+	userServer "github.com/liangqianyang/permissionBase/internal/server/userbase"
+	"github.com/liangqianyang/permissionBase/internal/svc"
+	"github.com/liangqianyang/permissionBase/pb/permissionBase"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/zero-contrib/zrpc/registry/consul"
 

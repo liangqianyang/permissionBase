@@ -5,11 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/qy-blog/permissionBase/internal/model"
+	"github.com/liangqianyang/permissionBase/internal/model"
 	"time"
 
-	"github.com/qy-blog/permissionBase/internal/svc"
-	pb "github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/internal/svc"
+	pb "github.com/liangqianyang/permissionBase/pb/permissionBase"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

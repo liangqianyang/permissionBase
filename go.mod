@@ -1,4 +1,4 @@
-module github.com/qy-blog/permissionBase
+module github.com/liangqianyang/permissionBase
 
 go 1.21.5
 

@@ -2,11 +2,11 @@ package permissionbaselogic
 
 import (
 	"context"
-	"github.com/qy-blog/permissionBase/internal/model"
+	"github.com/liangqianyang/permissionBase/internal/model"
 	"github.com/zeromicro/go-zero/core/logc"
 
-	"github.com/qy-blog/permissionBase/internal/svc"
-	"github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/internal/svc"
+	"github.com/liangqianyang/permissionBase/pb/permissionBase"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

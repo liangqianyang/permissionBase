@@ -16,7 +16,6 @@ type ApolloConf struct {
 
 type Config struct {
 	zrpc.RpcServerConf
-	Consul         consul.Conf
-	DataSourceName string
-	Apollo         ApolloConf
+	Consul consul.Conf
+	Apollo ApolloConf
 }

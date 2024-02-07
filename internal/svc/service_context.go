@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/apolloconfig/agollo/v4"
 	apolloConfig "github.com/apolloconfig/agollo/v4/env/config"
-	"github.com/qy-blog/permissionBase/internal/config"
+	"github.com/liangqianyang/permissionBase/internal/config"
 	"github.com/zeromicro/go-zero/core/logc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

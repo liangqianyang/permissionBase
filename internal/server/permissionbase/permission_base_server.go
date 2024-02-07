@@ -5,10 +5,10 @@ package server
 
 import (
 	"context"
+	permissionbaselogic "github.com/liangqianyang/permissionBase/internal/logic/permissionbase"
 
-	"github.com/qy-blog/permissionBase/internal/logic/permissionbase"
-	"github.com/qy-blog/permissionBase/internal/svc"
-	"github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/internal/svc"
+	"github.com/liangqianyang/permissionBase/pb/permissionBase"
 )
 
 type PermissionBaseServer struct {

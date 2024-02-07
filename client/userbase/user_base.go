@@ -6,7 +6,7 @@ package userbase
 import (
 	"context"
 
-	"github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/pb/permissionBase"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

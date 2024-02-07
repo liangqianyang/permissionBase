@@ -5,9 +5,9 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
-	"github.com/qy-blog/permissionBase/internal/model"
-	"github.com/qy-blog/permissionBase/internal/svc"
-	pb "github.com/qy-blog/permissionBase/pb/permissionBase"
+	"github.com/liangqianyang/permissionBase/internal/model"
+	"github.com/liangqianyang/permissionBase/internal/svc"
+	pb "github.com/liangqianyang/permissionBase/pb/permissionBase"
 	"github.com/zeromicro/go-zero/core/logc"
 	"github.com/zeromicro/go-zero/core/logx"
 )
