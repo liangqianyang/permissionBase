@@ -17,16 +17,24 @@ type (
 	CreateMenuResponse       = permissionBase.CreateMenuResponse
 	CreatePermissionRequest  = permissionBase.CreatePermissionRequest
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
+	CreateRoleRequest        = permissionBase.CreateRoleRequest
+	CreateRoleResponse       = permissionBase.CreateRoleResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest
 	CreateUserResponse       = permissionBase.CreateUserResponse
 	LoginRequest             = permissionBase.LoginRequest
 	LoginResponse            = permissionBase.LoginResponse
+	UpdateMenuRequest        = permissionBase.UpdateMenuRequest
+	UpdateMenuResponse       = permissionBase.UpdateMenuResponse
 
 	PermissionBase interface {
 		// CreateMenu 创建菜单
 		CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error)
 		// CreatePermission 创建权限
 		CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
+		// UpdateMenu 更新菜单
+		UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error)
+		// CreateRole 创建角色
+		CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	}
 
 	defaultPermissionBase struct {
@@ -50,4 +58,16 @@ func (m *defaultPermissionBase) CreateMenu(ctx context.Context, in *CreateMenuRe
 func (m *defaultPermissionBase) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
 	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
 	return client.CreatePermission(ctx, in, opts...)
+}
+
+// UpdateMenu 更新菜单
+func (m *defaultPermissionBase) UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.UpdateMenu(ctx, in, opts...)
+}
+
+// CreateRole 创建角色
+func (m *defaultPermissionBase) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.CreateRole(ctx, in, opts...)
 }

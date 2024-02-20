@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package permissionBase;
+import "google/protobuf/wrappers.proto";
 option go_package="./permissionBase";
 
 // 用户状态的枚举
@@ -39,11 +40,13 @@ message CreateUserResponse {
   int64 id = 1;
 }
 
+// 登陆的请求
 message LoginRequest {
   string username = 1;
   string password = 2;
 }
 
+// 登陆的响应
 message LoginResponse {
   int64 id = 1;
   string username = 2;
@@ -58,6 +61,12 @@ message CreatePermissionRequest {
   string permission_desc = 3;
 }
 
+// 创建权限的响应
+message CreatePermissionResponse {
+  int64 id = 1;
+}
+
+// 创建菜单的请求
 message CreateMenuRequest {
   int64 parent_id = 1;
   string name = 2;
@@ -66,20 +75,49 @@ message CreateMenuRequest {
   int64 sort = 5;
 }
 
+// 创建菜单的响应
 message CreateMenuResponse {
 
 }
 
-// 创建权限的响应
-message CreatePermissionResponse {
+// 更新菜单的请求
+message UpdateMenuRequest {
   int64 id = 1;
+  google.protobuf.Int64Value parent_id = 2;
+  google.protobuf.StringValue name = 3;
+  google.protobuf.StringValue icon = 4;
+  google.protobuf.StringValue path = 5;
+  google.protobuf.Int64Value sort = 6;
+  google.protobuf.Int64Value state = 7;
 }
+
+// 更新菜单的响应
+message UpdateMenuResponse {
+
+}
+
+// 创建角色的请求
+message CreateRoleRequest {
+  string name = 1;
+  string description = 2;
+}
+
+// 创建角色的响应
+message CreateRoleResponse {
+
+}
+
+
 
 service PermissionBase {
   // CreateMenu 创建菜单
   rpc CreateMenu(CreateMenuRequest) returns(CreateMenuResponse);
   // CreatePermission 创建权限
   rpc CreatePermission(CreatePermissionRequest) returns(CreatePermissionResponse);
+  // UpdateMenu 更新菜单
+  rpc UpdateMenu(UpdateMenuRequest) returns(UpdateMenuResponse);
+  // CreateRole 创建角色
+  rpc CreateRole(CreateRoleRequest) returns(CreateRoleResponse);
 }
 
 service UserBase {

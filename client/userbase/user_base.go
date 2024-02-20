@@ -17,10 +17,14 @@ type (
 	CreateMenuResponse       = permissionBase.CreateMenuResponse
 	CreatePermissionRequest  = permissionBase.CreatePermissionRequest
 	CreatePermissionResponse = permissionBase.CreatePermissionResponse
+	CreateRoleRequest        = permissionBase.CreateRoleRequest
+	CreateRoleResponse       = permissionBase.CreateRoleResponse
 	CreateUserRequest        = permissionBase.CreateUserRequest
 	CreateUserResponse       = permissionBase.CreateUserResponse
 	LoginRequest             = permissionBase.LoginRequest
 	LoginResponse            = permissionBase.LoginResponse
+	UpdateMenuRequest        = permissionBase.UpdateMenuRequest
+	UpdateMenuResponse       = permissionBase.UpdateMenuResponse
 
 	UserBase interface {
 		// CreateUser 创建用户

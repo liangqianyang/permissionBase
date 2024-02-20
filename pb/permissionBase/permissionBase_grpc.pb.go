@@ -21,6 +21,8 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	PermissionBase_CreateMenu_FullMethodName       = "/permissionBase.PermissionBase/CreateMenu"
 	PermissionBase_CreatePermission_FullMethodName = "/permissionBase.PermissionBase/CreatePermission"
+	PermissionBase_UpdateMenu_FullMethodName       = "/permissionBase.PermissionBase/UpdateMenu"
+	PermissionBase_CreateRole_FullMethodName       = "/permissionBase.PermissionBase/CreateRole"
 )
 
 // PermissionBaseClient is the client API for PermissionBase service.
@@ -31,6 +33,10 @@ type PermissionBaseClient interface {
 	CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error)
 	// CreatePermission 创建权限
 	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
+	// UpdateMenu 更新菜单
+	UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error)
+	// CreateRole 创建角色
+	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 }
 
 type permissionBaseClient struct {
@@ -59,6 +65,24 @@ func (c *permissionBaseClient) CreatePermission(ctx context.Context, in *CreateP
 	return out, nil
 }
 
+func (c *permissionBaseClient) UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error) {
+	out := new(UpdateMenuResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_UpdateMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permissionBaseClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
+	out := new(CreateRoleResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_CreateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PermissionBaseServer is the server API for PermissionBase service.
 // All implementations must embed UnimplementedPermissionBaseServer
 // for forward compatibility
@@ -67,6 +91,10 @@ type PermissionBaseServer interface {
 	CreateMenu(context.Context, *CreateMenuRequest) (*CreateMenuResponse, error)
 	// CreatePermission 创建权限
 	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
+	// UpdateMenu 更新菜单
+	UpdateMenu(context.Context, *UpdateMenuRequest) (*UpdateMenuResponse, error)
+	// CreateRole 创建角色
+	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	mustEmbedUnimplementedPermissionBaseServer()
 }
 
@@ -79,6 +107,12 @@ func (UnimplementedPermissionBaseServer) CreateMenu(context.Context, *CreateMenu
 }
 func (UnimplementedPermissionBaseServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
+}
+func (UnimplementedPermissionBaseServer) UpdateMenu(context.Context, *UpdateMenuRequest) (*UpdateMenuResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
+}
+func (UnimplementedPermissionBaseServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
 func (UnimplementedPermissionBaseServer) mustEmbedUnimplementedPermissionBaseServer() {}
 
@@ -129,6 +163,42 @@ func _PermissionBase_CreatePermission_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PermissionBase_UpdateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateMenuRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).UpdateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_UpdateMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).UpdateMenu(ctx, req.(*UpdateMenuRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermissionBase_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).CreateRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_CreateRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).CreateRole(ctx, req.(*CreateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PermissionBase_ServiceDesc is the grpc.ServiceDesc for PermissionBase service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +213,14 @@ var PermissionBase_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePermission",
 			Handler:    _PermissionBase_CreatePermission_Handler,
+		},
+		{
+			MethodName: "UpdateMenu",
+			Handler:    _PermissionBase_UpdateMenu_Handler,
+		},
+		{
+			MethodName: "CreateRole",
+			Handler:    _PermissionBase_CreateRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

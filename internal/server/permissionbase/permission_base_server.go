@@ -33,3 +33,15 @@ func (s *PermissionBaseServer) CreatePermission(ctx context.Context, in *permiss
 	l := permissionbaselogic.NewCreatePermissionLogic(ctx, s.svcCtx)
 	return l.CreatePermission(in)
 }
+
+// UpdateMenu 更新菜单
+func (s *PermissionBaseServer) UpdateMenu(ctx context.Context, in *permissionBase.UpdateMenuRequest) (*permissionBase.UpdateMenuResponse, error) {
+	l := permissionbaselogic.NewUpdateMenuLogic(ctx, s.svcCtx)
+	return l.UpdateMenu(in)
+}
+
+// CreateRole 创建角色
+func (s *PermissionBaseServer) CreateRole(ctx context.Context, in *permissionBase.CreateRoleRequest) (*permissionBase.CreateRoleResponse, error) {
+	l := permissionbaselogic.NewCreateRoleLogic(ctx, s.svcCtx)
+	return l.CreateRole(in)
+}
