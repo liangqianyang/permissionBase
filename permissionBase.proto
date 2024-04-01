@@ -82,10 +82,10 @@ message CreateMenuRequest {
   string icon = 3;
   // 菜单路径.
   string path = 4;
-  // 排序.
-  int64 sort = 5;
   // 菜单类型.
-  MenuType menu_type = 6;
+  MenuType menu_type = 5;
+  // 排序.
+  int64 sort = 6;
 }
 
 // 创建菜单的响应
@@ -95,13 +95,22 @@ message CreateMenuResponse {
 
 // 更新菜单的请求
 message UpdateMenuRequest {
+  // 菜单ID.
   int64 id = 1;
+  // 父菜单ID.
   google.protobuf.Int64Value parent_id = 2;
+  // 菜单名称.
   google.protobuf.StringValue name = 3;
+  // 菜单图标.
   google.protobuf.StringValue icon = 4;
+  // 菜单路径.
   google.protobuf.StringValue path = 5;
+  // 排序.
   google.protobuf.Int64Value sort = 6;
+  // 状态.
   google.protobuf.Int64Value state = 7;
+  // 菜单类型.
+  google.protobuf.Int64Value menu_type = 8;
 }
 
 // 更新菜单的响应
@@ -109,23 +118,72 @@ message UpdateMenuResponse {
 
 }
 
+// 设置菜单权限的请求
+message SetMenuPermissionRequest {
+  // 菜单ID.
+  int64 menu_id = 1;
+  // 权限ID.
+  repeated int64 permission_id = 2;
+}
+
+// 设置菜单权限的响应
+message SetMenuPermissionResponse {
+}
+
+// 权限状态的枚举
+enum PermissionState {
+  PERMISSION_STATE_UNKNOWN = 0; // 未知
+  PERMISSION_STATE_DISABLE = -1; // 禁用
+  PERMISSION_STATE_ENABLE = 1; // 启用
+}
+
 // 创建权限的请求
 message CreatePermissionRequest {
   // 权限名称.
-  string permission_name = 1;
+  string name = 1;
   // 权限标识.
   string identify_name = 2;
-  // 权限描述.
+  // 控制器.
   string controller= 3;
   // 动作.
   string action = 4;
   // 权限描述.
-  string permission_desc = 5;
+  string description = 5;
 }
 
 // 创建权限的响应
 message CreatePermissionResponse {
-  int64 id = 1;
+
+}
+
+// 更新权限的请求
+message UpdatePermissionRequest {
+  // 权限ID.
+  int64 id = 1; // @gotags: validate:"required"
+  // 权限名称.
+  string name = 2; // @gotags: validate:"omitempty,max=32"
+  // 权限标识.
+  string identify_name = 3; // @gotags: validate:"omitempty,max=32"
+  // 控制器.
+  string controller = 4; // @gotags: validate:"omitempty,max=32"
+  // 动作.
+  string action = 5; // @gotags: validate:"omitempty,max=32"
+  // 状态.
+  PermissionState state = 6; // @gotags: validate:"omitempty"
+  // 权限描述.
+  string description = 7; // @gotags: validate:"omitempty,max=128"
+}
+
+// 更新权限的响应
+message UpdatePermissionResponse {
+
+}
+
+// 角色状态的枚举
+enum RoleState {
+  ROLE_STATE_UNKNOWN = 0; // 未知
+  ROLE_STATE_DISABLE = -1; // 禁用
+  ROLE_STATE_ENABLE = 1; // 启用
 }
 
 // 创建角色的请求
@@ -139,17 +197,64 @@ message CreateRoleResponse {
 
 }
 
+// 更新角色的请求
+message UpdateRoleRequest {
+  int64 id = 1;
+  string name = 2; // @gotags: validate:"omitempty,max=32"
+  string description = 3; // @gotags: validate:"omitempty,max=128"
+  RoleState state = 4; // @gotags: validate:"omitempty"
+}
 
+// 更新角色的响应
+message UpdateRoleResponse {
+
+}
+
+// 设置角色菜单的请求
+message SetRoleMenuRequest {
+  // 角色ID.
+  int64 role_id = 1;
+  // 菜单ID.
+  repeated int64 menu_id = 2;
+}
+
+// 设置角色菜单的响应
+message SetRoleMenuResponse {
+
+}
+
+// 设置用户角色的请求
+message SetUserRoleRequest {
+  // 角色ID.
+  int64 role_id = 1;
+  // 用户ID.
+  repeated int64 user_id = 2;
+}
+
+// 设置用户角色的响应
+message SetUserRoleResponse {
+
+}
 
 service PermissionBase {
   // CreateMenu 创建菜单
   rpc CreateMenu(CreateMenuRequest) returns(CreateMenuResponse);
-  // CreatePermission 创建权限
-  rpc CreatePermission(CreatePermissionRequest) returns(CreatePermissionResponse);
   // UpdateMenu 更新菜单
   rpc UpdateMenu(UpdateMenuRequest) returns(UpdateMenuResponse);
+  // CreatePermission 创建权限
+  rpc CreatePermission(CreatePermissionRequest) returns(CreatePermissionResponse);
+  // UpdatePermission 更新权限
+  rpc UpdatePermission(UpdatePermissionRequest) returns(UpdatePermissionResponse);
   // CreateRole 创建角色
   rpc CreateRole(CreateRoleRequest) returns(CreateRoleResponse);
+  // UpdateRole 更新角色
+  rpc UpdateRole(UpdateRoleRequest) returns(UpdateRoleResponse);
+  // SetMenuPermission 设置菜单权限
+  rpc SetMenuPermission(SetMenuPermissionRequest) returns(SetMenuPermissionResponse);
+  // SetRoleMenu 设置角色菜单
+  rpc SetRoleMenu(SetRoleMenuRequest) returns(SetRoleMenuResponse);
+  // SetUserRole 设置用户角色
+  rpc SetUserRole(SetUserRoleRequest) returns(SetUserRoleResponse);
 }
 
 service UserBase {

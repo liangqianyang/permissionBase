@@ -13,18 +13,28 @@ import (
 )
 
 type (
-	CreateMenuRequest        = permissionBase.CreateMenuRequest
-	CreateMenuResponse       = permissionBase.CreateMenuResponse
-	CreatePermissionRequest  = permissionBase.CreatePermissionRequest
-	CreatePermissionResponse = permissionBase.CreatePermissionResponse
-	CreateRoleRequest        = permissionBase.CreateRoleRequest
-	CreateRoleResponse       = permissionBase.CreateRoleResponse
-	CreateUserRequest        = permissionBase.CreateUserRequest
-	CreateUserResponse       = permissionBase.CreateUserResponse
-	LoginRequest             = permissionBase.LoginRequest
-	LoginResponse            = permissionBase.LoginResponse
-	UpdateMenuRequest        = permissionBase.UpdateMenuRequest
-	UpdateMenuResponse       = permissionBase.UpdateMenuResponse
+	CreateMenuRequest         = permissionBase.CreateMenuRequest
+	CreateMenuResponse        = permissionBase.CreateMenuResponse
+	CreatePermissionRequest   = permissionBase.CreatePermissionRequest
+	CreatePermissionResponse  = permissionBase.CreatePermissionResponse
+	CreateRoleRequest         = permissionBase.CreateRoleRequest
+	CreateRoleResponse        = permissionBase.CreateRoleResponse
+	CreateUserRequest         = permissionBase.CreateUserRequest
+	CreateUserResponse        = permissionBase.CreateUserResponse
+	LoginRequest              = permissionBase.LoginRequest
+	LoginResponse             = permissionBase.LoginResponse
+	SetMenuPermissionRequest  = permissionBase.SetMenuPermissionRequest
+	SetMenuPermissionResponse = permissionBase.SetMenuPermissionResponse
+	SetRoleMenuRequest        = permissionBase.SetRoleMenuRequest
+	SetRoleMenuResponse       = permissionBase.SetRoleMenuResponse
+	SetUserRoleRequest        = permissionBase.SetUserRoleRequest
+	SetUserRoleResponse       = permissionBase.SetUserRoleResponse
+	UpdateMenuRequest         = permissionBase.UpdateMenuRequest
+	UpdateMenuResponse        = permissionBase.UpdateMenuResponse
+	UpdatePermissionRequest   = permissionBase.UpdatePermissionRequest
+	UpdatePermissionResponse  = permissionBase.UpdatePermissionResponse
+	UpdateRoleRequest         = permissionBase.UpdateRoleRequest
+	UpdateRoleResponse        = permissionBase.UpdateRoleResponse
 
 	UserBase interface {
 		// CreateUser 创建用户

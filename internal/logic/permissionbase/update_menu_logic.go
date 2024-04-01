@@ -29,9 +29,8 @@ func NewUpdateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Update
 // UpdateMenu 更新菜单
 func (l *UpdateMenuLogic) UpdateMenu(in *permissionBase.UpdateMenuRequest) (*permissionBase.UpdateMenuResponse, error) {
 	menu := &model.Menus{}
-	l.svcCtx.Db.Model(&model.Menus{}).Where("id = ?", in.Id).First(menu)
-	if menu.Id == 0 {
-		return nil, errors.New("menu not exists")
+	if err := menu.CheckMenuIsExists(l.ctx, l.svcCtx, in.Id); err != nil {
+		return nil, err
 	}
 	if in.ParentId != nil && in.ParentId.Value > 0 {
 		var count int64
@@ -58,6 +57,10 @@ func (l *UpdateMenuLogic) UpdateMenu(in *permissionBase.UpdateMenuRequest) (*per
 		menu.Path = in.Path.Value
 	}
 
+	if in.MenuType != nil && in.MenuType.Value > 0 {
+		menu.MenuType = in.MenuType.Value
+	}
+
 	if in.Sort != nil && in.Sort.Value > 0 {
 		menu.Sort = in.Sort.Value
 	}
@@ -66,8 +69,7 @@ func (l *UpdateMenuLogic) UpdateMenu(in *permissionBase.UpdateMenuRequest) (*per
 		menu.State = in.State.Value
 	}
 
-	err := l.svcCtx.Db.Save(menu).Error
-	if err != nil {
+	if err := l.svcCtx.Db.Save(menu).Error; err != nil {
 		logc.Errorf(l.ctx, "update menu failed: %v", err)
 		return nil, err
 	}

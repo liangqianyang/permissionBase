@@ -9,6 +9,6 @@ CREATE TABLE t_permissions (
  created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
  updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  INDEX idx_name (name),
- UNIQUE uk_identify_name (identify_name),
+ UNIQUE uni_identify_name (identify_name),
  PRIMARY KEY (id)
 ) ENGINE = InnoDB COLLATE utf8mb4_general_ci COMMENT '权限表';

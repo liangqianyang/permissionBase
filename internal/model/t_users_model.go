@@ -19,8 +19,8 @@ type Users struct {
 	Email     string    `gorm:"column:email" json:"email"`                                         // 邮箱
 	Gender    int64     `gorm:"column:gender" json:"gender"`                                       // 性别 0:未知 1:男 2:女
 	State     int64     `gorm:"column:state" json:"state"`                                         // 状态 1:正常 -1:禁用
-	CreatedAt time.Time `gorm:"column:create_at" json:"created_at"`                                // 创建时间
-	UpdatedAt time.Time `gorm:"column:update_at" json:"updated_at"`                                // 系统自动更新时间
+	CreatedAt time.Time `gorm:"column:created_at;autoCreateTime" json:"created_at"`                // 创建时间
+	UpdatedAt time.Time `gorm:"column:updated_at;autoUpdateTime" json:"updated_at"`                // 系统自动更新时间
 }
 
 // CheckUnique 检查用户是否唯一

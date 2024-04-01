@@ -33,22 +33,21 @@ func (l *CreateMenuLogic) CreateMenu(in *permissionBase.CreateMenuRequest) (*per
 		Icon:     in.Icon,
 		Path:     in.Path,
 		Sort:     in.Sort,
+		MenuType: int64(in.MenuType),
 	}
 
-	err := newMenu.CheckParentIdIsExists(l.ctx, l.svcCtx, in)
-	if err != nil {
+	if err := newMenu.CheckParentIdIsExists(l.ctx, l.svcCtx, in); err != nil {
 		return nil, err
 	}
 
-	err = newMenu.CheckMenuUnique(l.ctx, l.svcCtx, in)
-	if err != nil {
+	if err := newMenu.CheckMenuUnique(l.ctx, l.svcCtx, in); err != nil {
 		return nil, err
 	}
 
-	err = l.svcCtx.Db.Create(newMenu).Error
-	if err != nil {
+	if err := l.svcCtx.Db.Create(newMenu).Error; err != nil {
 		logc.Errorf(l.ctx, "create menu failed: %v", err)
 		return nil, err
 	}
+
 	return &permissionBase.CreateMenuResponse{}, nil
 }

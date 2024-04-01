@@ -32,13 +32,12 @@ func (l *CreateRoleLogic) CreateRole(in *permissionBase.CreateRoleRequest) (*per
 		Description: in.Description,
 	}
 
-	err := newRole.CheckRoleUnique(l.ctx, l.svcCtx, in.Name)
-	if err != nil {
+	if err := newRole.CheckRoleUnique(l.ctx, l.svcCtx, in.Name); err != nil {
 		return nil, err
+
 	}
 
-	err = l.svcCtx.Db.Create(newRole).Error
-	if err != nil {
+	if err := l.svcCtx.Db.Create(newRole).Error; err != nil {
 		logc.Errorf(l.ctx, "create role failed: %v", err)
 		return nil, err
 	}
