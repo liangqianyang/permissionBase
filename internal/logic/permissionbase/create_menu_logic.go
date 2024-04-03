@@ -31,7 +31,7 @@ func (l *CreateMenuLogic) CreateMenu(in *permissionBase.CreateMenuRequest) (*per
 		ParentId: in.ParentId,
 		Name:     in.Name,
 		Icon:     in.Icon,
-		Path:     in.Path,
+		Url:      in.Url,
 		Sort:     in.Sort,
 		MenuType: int64(in.MenuType),
 	}

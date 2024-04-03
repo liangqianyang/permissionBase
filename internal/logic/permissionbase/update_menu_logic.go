@@ -53,8 +53,8 @@ func (l *UpdateMenuLogic) UpdateMenu(in *permissionBase.UpdateMenuRequest) (*per
 		menu.Icon = in.Icon.Value
 	}
 
-	if in.Path != nil && in.Path.Value != "" {
-		menu.Path = in.Path.Value
+	if in.Url != nil && in.Url.Value != "" {
+		menu.Url = in.Url.Value
 	}
 
 	if in.MenuType != nil && in.MenuType.Value > 0 {

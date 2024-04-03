@@ -8,6 +8,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logc"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 )
 
@@ -43,6 +44,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 			SingularTable: false, // 使用单数表名，启用该选项，此时，`User` 的表名应该是 `t_user`
 		},
 		SkipDefaultTransaction: true,
+		Logger:                 logger.Default.LogMode(logger.Info),
 	})
 
 	if err != nil {

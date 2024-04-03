@@ -34,6 +34,12 @@ func (s *PermissionBaseServer) UpdateMenu(ctx context.Context, in *permissionBas
 	return l.UpdateMenu(in)
 }
 
+// GetMenuList 获取菜单列表
+func (s *PermissionBaseServer) GetMenuList(ctx context.Context, in *permissionBase.GetMenuListRequest) (*permissionBase.GetMenuListResponse, error) {
+	l := permissionbaselogic.NewGetMenuListLogic(ctx, s.svcCtx)
+	return l.GetMenuList(in)
+}
+
 // CreatePermission 创建权限
 func (s *PermissionBaseServer) CreatePermission(ctx context.Context, in *permissionBase.CreatePermissionRequest) (*permissionBase.CreatePermissionResponse, error) {
 	l := permissionbaselogic.NewCreatePermissionLogic(ctx, s.svcCtx)
@@ -46,6 +52,12 @@ func (s *PermissionBaseServer) UpdatePermission(ctx context.Context, in *permiss
 	return l.UpdatePermission(in)
 }
 
+// GetPermissionList 获取权限列表
+func (s *PermissionBaseServer) GetPermissionList(ctx context.Context, in *permissionBase.GetPermissionListRequest) (*permissionBase.GetPermissionListResponse, error) {
+	l := permissionbaselogic.NewGetPermissionListLogic(ctx, s.svcCtx)
+	return l.GetPermissionList(in)
+}
+
 // CreateRole 创建角色
 func (s *PermissionBaseServer) CreateRole(ctx context.Context, in *permissionBase.CreateRoleRequest) (*permissionBase.CreateRoleResponse, error) {
 	l := permissionbaselogic.NewCreateRoleLogic(ctx, s.svcCtx)
@@ -56,6 +68,12 @@ func (s *PermissionBaseServer) CreateRole(ctx context.Context, in *permissionBas
 func (s *PermissionBaseServer) UpdateRole(ctx context.Context, in *permissionBase.UpdateRoleRequest) (*permissionBase.UpdateRoleResponse, error) {
 	l := permissionbaselogic.NewUpdateRoleLogic(ctx, s.svcCtx)
 	return l.UpdateRole(in)
+}
+
+// GetRoleList 获取角色列表
+func (s *PermissionBaseServer) GetRoleList(ctx context.Context, in *permissionBase.GetRoleListRequest) (*permissionBase.GetRoleListResponse, error) {
+	l := permissionbaselogic.NewGetRoleListLogic(ctx, s.svcCtx)
+	return l.GetRoleList(in)
 }
 
 // SetMenuPermission 设置菜单权限

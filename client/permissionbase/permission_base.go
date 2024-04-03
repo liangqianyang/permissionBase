@@ -21,8 +21,18 @@ type (
 	CreateRoleResponse        = permissionBase.CreateRoleResponse
 	CreateUserRequest         = permissionBase.CreateUserRequest
 	CreateUserResponse        = permissionBase.CreateUserResponse
+	GetMenuListRequest        = permissionBase.GetMenuListRequest
+	GetMenuListResponse       = permissionBase.GetMenuListResponse
+	GetPermissionListRequest  = permissionBase.GetPermissionListRequest
+	GetPermissionListResponse = permissionBase.GetPermissionListResponse
+	GetRoleListRequest        = permissionBase.GetRoleListRequest
+	GetRoleListResponse       = permissionBase.GetRoleListResponse
 	LoginRequest              = permissionBase.LoginRequest
 	LoginResponse             = permissionBase.LoginResponse
+	MenuInfo                  = permissionBase.MenuInfo
+	PageInfo                  = permissionBase.PageInfo
+	PermissionInfo            = permissionBase.PermissionInfo
+	RoleInfo                  = permissionBase.RoleInfo
 	SetMenuPermissionRequest  = permissionBase.SetMenuPermissionRequest
 	SetMenuPermissionResponse = permissionBase.SetMenuPermissionResponse
 	SetRoleMenuRequest        = permissionBase.SetRoleMenuRequest
@@ -41,14 +51,20 @@ type (
 		CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error)
 		// UpdateMenu 更新菜单
 		UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error)
+		// GetMenuList 获取菜单列表
+		GetMenuList(ctx context.Context, in *GetMenuListRequest, opts ...grpc.CallOption) (*GetMenuListResponse, error)
 		// CreatePermission 创建权限
 		CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
 		// UpdatePermission 更新权限
 		UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error)
+		// GetPermissionList 获取权限列表
+		GetPermissionList(ctx context.Context, in *GetPermissionListRequest, opts ...grpc.CallOption) (*GetPermissionListResponse, error)
 		// CreateRole 创建角色
 		CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 		// UpdateRole 更新角色
 		UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
+		// GetRoleList 获取角色列表
+		GetRoleList(ctx context.Context, in *GetRoleListRequest, opts ...grpc.CallOption) (*GetRoleListResponse, error)
 		// SetMenuPermission 设置菜单权限
 		SetMenuPermission(ctx context.Context, in *SetMenuPermissionRequest, opts ...grpc.CallOption) (*SetMenuPermissionResponse, error)
 		// SetRoleMenu 设置角色菜单
@@ -80,6 +96,12 @@ func (m *defaultPermissionBase) UpdateMenu(ctx context.Context, in *UpdateMenuRe
 	return client.UpdateMenu(ctx, in, opts...)
 }
 
+// GetMenuList 获取菜单列表
+func (m *defaultPermissionBase) GetMenuList(ctx context.Context, in *GetMenuListRequest, opts ...grpc.CallOption) (*GetMenuListResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.GetMenuList(ctx, in, opts...)
+}
+
 // CreatePermission 创建权限
 func (m *defaultPermissionBase) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
 	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
@@ -92,6 +114,12 @@ func (m *defaultPermissionBase) UpdatePermission(ctx context.Context, in *Update
 	return client.UpdatePermission(ctx, in, opts...)
 }
 
+// GetPermissionList 获取权限列表
+func (m *defaultPermissionBase) GetPermissionList(ctx context.Context, in *GetPermissionListRequest, opts ...grpc.CallOption) (*GetPermissionListResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.GetPermissionList(ctx, in, opts...)
+}
+
 // CreateRole 创建角色
 func (m *defaultPermissionBase) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
 	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
@@ -102,6 +130,12 @@ func (m *defaultPermissionBase) CreateRole(ctx context.Context, in *CreateRoleRe
 func (m *defaultPermissionBase) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
 	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
 	return client.UpdateRole(ctx, in, opts...)
+}
+
+// GetRoleList 获取角色列表
+func (m *defaultPermissionBase) GetRoleList(ctx context.Context, in *GetRoleListRequest, opts ...grpc.CallOption) (*GetRoleListResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.GetRoleList(ctx, in, opts...)
 }
 
 // SetMenuPermission 设置菜单权限

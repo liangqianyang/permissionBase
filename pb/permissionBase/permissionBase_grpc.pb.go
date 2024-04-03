@@ -21,10 +21,13 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	PermissionBase_CreateMenu_FullMethodName        = "/permissionBase.PermissionBase/CreateMenu"
 	PermissionBase_UpdateMenu_FullMethodName        = "/permissionBase.PermissionBase/UpdateMenu"
+	PermissionBase_GetMenuList_FullMethodName       = "/permissionBase.PermissionBase/GetMenuList"
 	PermissionBase_CreatePermission_FullMethodName  = "/permissionBase.PermissionBase/CreatePermission"
 	PermissionBase_UpdatePermission_FullMethodName  = "/permissionBase.PermissionBase/UpdatePermission"
+	PermissionBase_GetPermissionList_FullMethodName = "/permissionBase.PermissionBase/GetPermissionList"
 	PermissionBase_CreateRole_FullMethodName        = "/permissionBase.PermissionBase/CreateRole"
 	PermissionBase_UpdateRole_FullMethodName        = "/permissionBase.PermissionBase/UpdateRole"
+	PermissionBase_GetRoleList_FullMethodName       = "/permissionBase.PermissionBase/GetRoleList"
 	PermissionBase_SetMenuPermission_FullMethodName = "/permissionBase.PermissionBase/SetMenuPermission"
 	PermissionBase_SetRoleMenu_FullMethodName       = "/permissionBase.PermissionBase/SetRoleMenu"
 	PermissionBase_SetUserRole_FullMethodName       = "/permissionBase.PermissionBase/SetUserRole"
@@ -38,14 +41,20 @@ type PermissionBaseClient interface {
 	CreateMenu(ctx context.Context, in *CreateMenuRequest, opts ...grpc.CallOption) (*CreateMenuResponse, error)
 	// UpdateMenu 更新菜单
 	UpdateMenu(ctx context.Context, in *UpdateMenuRequest, opts ...grpc.CallOption) (*UpdateMenuResponse, error)
+	// GetMenuList 获取菜单列表
+	GetMenuList(ctx context.Context, in *GetMenuListRequest, opts ...grpc.CallOption) (*GetMenuListResponse, error)
 	// CreatePermission 创建权限
 	CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error)
 	// UpdatePermission 更新权限
 	UpdatePermission(ctx context.Context, in *UpdatePermissionRequest, opts ...grpc.CallOption) (*UpdatePermissionResponse, error)
+	// GetPermissionList 获取权限列表
+	GetPermissionList(ctx context.Context, in *GetPermissionListRequest, opts ...grpc.CallOption) (*GetPermissionListResponse, error)
 	// CreateRole 创建角色
 	CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error)
 	// UpdateRole 更新角色
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error)
+	// GetRoleList 获取角色列表
+	GetRoleList(ctx context.Context, in *GetRoleListRequest, opts ...grpc.CallOption) (*GetRoleListResponse, error)
 	// SetMenuPermission 设置菜单权限
 	SetMenuPermission(ctx context.Context, in *SetMenuPermissionRequest, opts ...grpc.CallOption) (*SetMenuPermissionResponse, error)
 	// SetRoleMenu 设置角色菜单
@@ -80,6 +89,15 @@ func (c *permissionBaseClient) UpdateMenu(ctx context.Context, in *UpdateMenuReq
 	return out, nil
 }
 
+func (c *permissionBaseClient) GetMenuList(ctx context.Context, in *GetMenuListRequest, opts ...grpc.CallOption) (*GetMenuListResponse, error) {
+	out := new(GetMenuListResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_GetMenuList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *permissionBaseClient) CreatePermission(ctx context.Context, in *CreatePermissionRequest, opts ...grpc.CallOption) (*CreatePermissionResponse, error) {
 	out := new(CreatePermissionResponse)
 	err := c.cc.Invoke(ctx, PermissionBase_CreatePermission_FullMethodName, in, out, opts...)
@@ -98,6 +116,15 @@ func (c *permissionBaseClient) UpdatePermission(ctx context.Context, in *UpdateP
 	return out, nil
 }
 
+func (c *permissionBaseClient) GetPermissionList(ctx context.Context, in *GetPermissionListRequest, opts ...grpc.CallOption) (*GetPermissionListResponse, error) {
+	out := new(GetPermissionListResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_GetPermissionList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *permissionBaseClient) CreateRole(ctx context.Context, in *CreateRoleRequest, opts ...grpc.CallOption) (*CreateRoleResponse, error) {
 	out := new(CreateRoleResponse)
 	err := c.cc.Invoke(ctx, PermissionBase_CreateRole_FullMethodName, in, out, opts...)
@@ -110,6 +137,15 @@ func (c *permissionBaseClient) CreateRole(ctx context.Context, in *CreateRoleReq
 func (c *permissionBaseClient) UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*UpdateRoleResponse, error) {
 	out := new(UpdateRoleResponse)
 	err := c.cc.Invoke(ctx, PermissionBase_UpdateRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *permissionBaseClient) GetRoleList(ctx context.Context, in *GetRoleListRequest, opts ...grpc.CallOption) (*GetRoleListResponse, error) {
+	out := new(GetRoleListResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_GetRoleList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -151,14 +187,20 @@ type PermissionBaseServer interface {
 	CreateMenu(context.Context, *CreateMenuRequest) (*CreateMenuResponse, error)
 	// UpdateMenu 更新菜单
 	UpdateMenu(context.Context, *UpdateMenuRequest) (*UpdateMenuResponse, error)
+	// GetMenuList 获取菜单列表
+	GetMenuList(context.Context, *GetMenuListRequest) (*GetMenuListResponse, error)
 	// CreatePermission 创建权限
 	CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error)
 	// UpdatePermission 更新权限
 	UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error)
+	// GetPermissionList 获取权限列表
+	GetPermissionList(context.Context, *GetPermissionListRequest) (*GetPermissionListResponse, error)
 	// CreateRole 创建角色
 	CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error)
 	// UpdateRole 更新角色
 	UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error)
+	// GetRoleList 获取角色列表
+	GetRoleList(context.Context, *GetRoleListRequest) (*GetRoleListResponse, error)
 	// SetMenuPermission 设置菜单权限
 	SetMenuPermission(context.Context, *SetMenuPermissionRequest) (*SetMenuPermissionResponse, error)
 	// SetRoleMenu 设置角色菜单
@@ -178,17 +220,26 @@ func (UnimplementedPermissionBaseServer) CreateMenu(context.Context, *CreateMenu
 func (UnimplementedPermissionBaseServer) UpdateMenu(context.Context, *UpdateMenuRequest) (*UpdateMenuResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateMenu not implemented")
 }
+func (UnimplementedPermissionBaseServer) GetMenuList(context.Context, *GetMenuListRequest) (*GetMenuListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMenuList not implemented")
+}
 func (UnimplementedPermissionBaseServer) CreatePermission(context.Context, *CreatePermissionRequest) (*CreatePermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePermission not implemented")
 }
 func (UnimplementedPermissionBaseServer) UpdatePermission(context.Context, *UpdatePermissionRequest) (*UpdatePermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermission not implemented")
 }
+func (UnimplementedPermissionBaseServer) GetPermissionList(context.Context, *GetPermissionListRequest) (*GetPermissionListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPermissionList not implemented")
+}
 func (UnimplementedPermissionBaseServer) CreateRole(context.Context, *CreateRoleRequest) (*CreateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRole not implemented")
 }
 func (UnimplementedPermissionBaseServer) UpdateRole(context.Context, *UpdateRoleRequest) (*UpdateRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedPermissionBaseServer) GetRoleList(context.Context, *GetRoleListRequest) (*GetRoleListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRoleList not implemented")
 }
 func (UnimplementedPermissionBaseServer) SetMenuPermission(context.Context, *SetMenuPermissionRequest) (*SetMenuPermissionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetMenuPermission not implemented")
@@ -248,6 +299,24 @@ func _PermissionBase_UpdateMenu_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PermissionBase_GetMenuList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMenuListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).GetMenuList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_GetMenuList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).GetMenuList(ctx, req.(*GetMenuListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PermissionBase_CreatePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePermissionRequest)
 	if err := dec(in); err != nil {
@@ -284,6 +353,24 @@ func _PermissionBase_UpdatePermission_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PermissionBase_GetPermissionList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetPermissionListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).GetPermissionList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_GetPermissionList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).GetPermissionList(ctx, req.(*GetPermissionListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PermissionBase_CreateRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRoleRequest)
 	if err := dec(in); err != nil {
@@ -316,6 +403,24 @@ func _PermissionBase_UpdateRole_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PermissionBaseServer).UpdateRole(ctx, req.(*UpdateRoleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PermissionBase_GetRoleList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRoleListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).GetRoleList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_GetRoleList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).GetRoleList(ctx, req.(*GetRoleListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -390,6 +495,10 @@ var PermissionBase_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PermissionBase_UpdateMenu_Handler,
 		},
 		{
+			MethodName: "GetMenuList",
+			Handler:    _PermissionBase_GetMenuList_Handler,
+		},
+		{
 			MethodName: "CreatePermission",
 			Handler:    _PermissionBase_CreatePermission_Handler,
 		},
@@ -398,12 +507,20 @@ var PermissionBase_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PermissionBase_UpdatePermission_Handler,
 		},
 		{
+			MethodName: "GetPermissionList",
+			Handler:    _PermissionBase_GetPermissionList_Handler,
+		},
+		{
 			MethodName: "CreateRole",
 			Handler:    _PermissionBase_CreateRole_Handler,
 		},
 		{
 			MethodName: "UpdateRole",
 			Handler:    _PermissionBase_UpdateRole_Handler,
+		},
+		{
+			MethodName: "GetRoleList",
+			Handler:    _PermissionBase_GetRoleList_Handler,
 		},
 		{
 			MethodName: "SetMenuPermission",
