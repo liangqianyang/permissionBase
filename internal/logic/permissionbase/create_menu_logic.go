@@ -28,12 +28,20 @@ func NewCreateMenuLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Create
 // CreateMenu 创建菜单
 func (l *CreateMenuLogic) CreateMenu(in *permissionBase.CreateMenuRequest) (*permissionBase.CreateMenuResponse, error) {
 	newMenu := &model.Menus{
-		ParentId: in.ParentId,
-		Name:     in.Name,
-		Icon:     in.Icon,
-		Url:      in.Url,
-		Sort:     in.Sort,
-		MenuType: int64(in.MenuType),
+		ParentId:      in.ParentId,
+		MenuType:      int64(in.MenuType),
+		Name:          in.Name,
+		Icon:          in.Icon,
+		Component:     in.Component,
+		ComponentName: in.ComponentName,
+		Path:          in.Path,
+		Sort:          in.Sort,
+		Hidden:        in.Hidden,
+		AlwaysShow:    in.AlwaysShow,
+		NoCache:       in.NoCache,
+		Breadcrumb:    in.Breadcrumb,
+		Affix:         in.Affix,
+		NoTagsView:    in.NoTagsView,
 	}
 
 	if err := newMenu.CheckParentIdIsExists(l.ctx, l.svcCtx, in); err != nil {

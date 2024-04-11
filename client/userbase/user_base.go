@@ -30,6 +30,7 @@ type (
 	LoginRequest              = permissionBase.LoginRequest
 	LoginResponse             = permissionBase.LoginResponse
 	MenuInfo                  = permissionBase.MenuInfo
+	MenuMeta                  = permissionBase.MenuMeta
 	PageInfo                  = permissionBase.PageInfo
 	PermissionInfo            = permissionBase.PermissionInfo
 	RoleInfo                  = permissionBase.RoleInfo

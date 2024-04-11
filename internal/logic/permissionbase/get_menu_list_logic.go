@@ -2,6 +2,7 @@ package permissionbaselogic
 
 import (
 	"context"
+	"fmt"
 	"github.com/liangqianyang/permissionBase/internal/model"
 	"github.com/liangqianyang/permissionBase/internal/svc"
 	"github.com/liangqianyang/permissionBase/pb/permissionBase"
@@ -43,41 +44,58 @@ func (l *GetMenuListLogic) GetMenuList(in *permissionBase.GetMenuListRequest) (*
 	if err := db.Model(&model.Menus{}).Count(&total).Error; err != nil {
 		return nil, err
 	}
-	page := in.Page
-	pageSize := in.PageSize
-	if page <= 0 {
-		page = model.DefaultPage
-	}
-	if pageSize <= 0 {
-		pageSize = model.DefaultPageSize
-	}
-	db = db.Offset(int((page - 1) * pageSize)).Limit(int(pageSize)).Order("sort asc")
+	db = db.Order("sort asc")
 	if err := db.Find(&menus).Error; err != nil {
 		return nil, err
 	}
 	list := make([]*permissionBase.MenuInfo, 0)
 	for _, menu := range menus {
 		list = append(list, &permissionBase.MenuInfo{
-			Id:         menu.Id,
-			Name:       menu.Name,
-			ParentId:   menu.ParentId,
-			MenuType:   permissionBase.MenuType(menu.MenuType),
-			Icon:       menu.Icon,
-			Url:        menu.Url,
-			Sort:       menu.Sort,
-			State:      permissionBase.MenuState(menu.State),
-			OperatorId: menu.OperatorId,
-			Operator:   menu.Operator,
-			CreatedAt:  menu.CreatedAt.Format("2006-01-02 15:04:05"),
-			UpdatedAt:  menu.UpdatedAt.Format("2006-01-02 15:04:05"),
+			ParentId:  menu.ParentId,
+			Id:        menu.Id,
+			Name:      menu.Name,
+			Component: menu.Component,
+			Path:      menu.Path,
+			Title:     menu.Name,
+			MenuType:  permissionBase.MenuType(menu.MenuType),
+			State:     permissionBase.MenuState(menu.State),
+			Meta: &permissionBase.MenuMeta{
+				Title:      menu.Name,
+				Icon:       menu.Icon,
+				Hidden:     menu.Hidden,
+				AlwaysShow: menu.AlwaysShow,
+				NoCache:    menu.NoCache,
+				Breadcrumb: menu.Breadcrumb,
+				Affix:      menu.Affix,
+				NoTagsView: menu.NoTagsView,
+			},
 		})
 	}
+	menuTree := l.buildMenuTree(list)
 	return &permissionBase.GetMenuListResponse{
-		List: list,
-		Page: &permissionBase.PageInfo{
-			Total:    total,
-			Page:     page,
-			PageSize: pageSize,
-		},
+		List: menuTree,
 	}, nil
+}
+
+// buildMenuTree 构建菜单树
+func (l *GetMenuListLogic) buildMenuTree(items []*permissionBase.MenuInfo) []*permissionBase.MenuInfo {
+	list := make([]*permissionBase.MenuInfo, 0)
+	for i := range items {
+		if items[i].ParentId == 0 {
+			list = append(list, items[i])
+		} else {
+			for j := range items {
+				if items[j].Id == items[i].ParentId {
+					if items[j].Children == nil {
+						items[j].Children = make([]*permissionBase.MenuInfo, 0)
+					}
+					items[j].Children = append(items[j].Children, items[i])
+					if items[j].Redirect == "" {
+						items[j].Redirect = fmt.Sprintf("%s/%s", items[j].Path, items[i].Path)
+					}
+				}
+			}
+		}
+	}
+	return list
 }

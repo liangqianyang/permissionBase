@@ -39,7 +39,6 @@ enum MenuState {
 enum MenuType {
   MENU_TYPE_UNKNOWN = 0; // 未知
   MENU_TYPE_MENU = 1; // 菜单
-  MENU_TYPE_BUTTON = 2; // 按钮
 }
 
 // 创建用户的请求
@@ -86,16 +85,32 @@ message LoginResponse {
 message CreateMenuRequest {
   // 父菜单ID.
   int64 parent_id = 1;
-  // 菜单名称.
-  string name = 2;
-  // 菜单图标.
-  string icon = 3;
-  // 菜单url.
-  string url = 4;
   // 菜单类型.
-  MenuType menu_type = 5;
+  MenuType menu_type = 2;
+  // 菜单名称.
+  string name = 3;
+  // 菜单图标.
+  string icon = 4;
+  // 菜单组件.
+  string component = 5;
+  // 菜单组件名称.
+  string component_name = 6;
+  // 菜单路径.
+  string path = 7;
   // 排序.
-  int64 sort = 6;
+  int64 sort = 8;
+  // 是否隐藏.
+  int64 hidden = 9;
+  // 是否一直显示.
+  int64 always_show = 10;
+  // 是否缓存.
+  int64 no_cache = 11;
+  // 是否显示面包屑.
+  int64 breadcrumb = 12;
+  // 是否固定在tagsView.
+  int64 affix = 13;
+  // 是否在tagsView显示.
+  int64 no_tags_view = 14;
 }
 
 // 创建菜单的响应
@@ -108,19 +123,35 @@ message UpdateMenuRequest {
   // 菜单ID.
   int64 id = 1;
   // 父菜单ID.
-  google.protobuf.Int64Value parent_id = 2;
-  // 菜单名称.
-  google.protobuf.StringValue name = 3;
-  // 菜单图标.
-  google.protobuf.StringValue icon = 4;
-  // 菜单url.
-  google.protobuf.StringValue url = 5;
-  // 排序.
-  google.protobuf.Int64Value sort = 6;
-  // 状态.
-  google.protobuf.Int64Value state = 7;
+  int64 parent_id = 2;
   // 菜单类型.
-  google.protobuf.Int64Value menu_type = 8;
+  MenuType menu_type = 3;
+  // 菜单名称.
+  string name = 4;
+  // 菜单图标.
+  string icon = 5;
+  // 菜单组件.
+  string component = 6;
+  // 菜单组件名称.
+  string component_name = 7;
+  // 菜单路径.
+  string path = 8;
+  // 排序.
+  int64 sort = 9;
+  // 状态.
+  MenuState state = 10;
+  // 是否隐藏.
+  int64 hidden = 11;
+  // 是否一直显示.
+  int64 always_show = 12;
+  // 是否缓存.
+  int64 no_cache = 13;
+  // 是否显示面包屑.
+  int64 breadcrumb = 14;
+  // 是否固定在tagsView.
+  int64 affix = 15;
+  // 是否在tagsView显示.
+  int64 no_tags_view = 16;
 }
 
 // 更新菜单的响应
@@ -128,32 +159,49 @@ message UpdateMenuResponse {
 
 }
 
+message MenuMeta {
+  // 标题.
+  string title = 1;
+  // 图标.
+  string icon = 2;
+  // 是否隐藏.
+  int64 hidden = 3;
+  // 是否一直显示.
+  int64 always_show = 4;
+  // 是否缓存.
+  int64 no_cache = 5;
+  // 是否显示面包屑.
+  int64 breadcrumb = 6;
+  // 是否固定在tagsView.
+  int64 affix = 7;
+  // 是否在tagsView显示.
+  int64 no_tags_view = 8;
+}
+
 // 菜单信息
 message MenuInfo {
-  // 菜单ID.
-  int64 id = 1;
   // 父菜单ID.
-  int64 parent_id = 2;
+  int64 parent_id = 1;
+  // 菜单ID.
+  int64 id = 2;
   // 菜单名称.
   string name = 3;
-  // 菜单图标.
-  string icon = 4;
-  // 菜单url.
-  string url = 5;
+  // 菜单组件.
+  string component = 4;
+  // 菜单路径.
+  string path = 5;
+  // 菜单标题.
+  string title = 6;
   // 菜单类型.
-  MenuType menu_type = 6;
-  // 排序.
-  int64 sort = 7;
+  MenuType menu_type = 7;
   // 状态.
   MenuState state = 8;
-  // 操作人ID.
-  int64 operator_id = 9;
-  // 操作人.
-  string operator = 10;
-  // 创建时间.
-  string created_at = 11;
-  // 更新时间.
-  string updated_at = 12;
+  // 跳转地址.
+  string redirect = 9;
+  // 菜单属性.
+  MenuMeta meta = 10;
+  // 子菜单.
+  repeated MenuInfo children = 11;
 }
 
 // 获取菜单列表的请求
@@ -166,18 +214,12 @@ message GetMenuListRequest {
   MenuType menu_type = 3;
   // 状态.
   MenuState state = 4;
-  // 页码.
-  int64 page = 5;
-  // 每页数量.
-  int64 page_size = 6;
 }
 
 // 获取菜单列表的响应
 message GetMenuListResponse {
   // 菜单列表.
   repeated MenuInfo list = 1;
-  // 分页信息.
-  PageInfo page = 2;
 }
 
 
