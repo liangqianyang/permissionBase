@@ -42,6 +42,7 @@ func (l *CreateMenuLogic) CreateMenu(in *permissionBase.CreateMenuRequest) (*per
 		Breadcrumb:    in.Breadcrumb,
 		Affix:         in.Affix,
 		NoTagsView:    in.NoTagsView,
+		State:         int64(in.State),
 	}
 
 	if err := newMenu.CheckParentIdIsExists(l.ctx, l.svcCtx, in); err != nil {

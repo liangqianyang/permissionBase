@@ -111,6 +111,8 @@ message CreateMenuRequest {
   int64 affix = 13;
   // 是否在tagsView显示.
   int64 no_tags_view = 14;
+  // 状态.
+  MenuState state = 15;
 }
 
 // 创建菜单的响应
