@@ -88,6 +88,12 @@ func (s *PermissionBaseServer) SetRoleMenu(ctx context.Context, in *permissionBa
 	return l.SetRoleMenu(in)
 }
 
+// GetUserList 获取用户列表
+func (s *PermissionBaseServer) GetUserList(ctx context.Context, in *permissionBase.GetUserListRequest) (*permissionBase.GetUserListResponse, error) {
+	l := permissionbaselogic.NewGetUserListLogic(ctx, s.svcCtx)
+	return l.GetUserList(in)
+}
+
 // SetUserRole 设置用户角色
 func (s *PermissionBaseServer) SetUserRole(ctx context.Context, in *permissionBase.SetUserRoleRequest) (*permissionBase.SetUserRoleResponse, error) {
 	l := permissionbaselogic.NewSetUserRoleLogic(ctx, s.svcCtx)

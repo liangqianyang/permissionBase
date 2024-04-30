@@ -27,6 +27,8 @@ type (
 	GetPermissionListResponse = permissionBase.GetPermissionListResponse
 	GetRoleListRequest        = permissionBase.GetRoleListRequest
 	GetRoleListResponse       = permissionBase.GetRoleListResponse
+	GetUserListRequest        = permissionBase.GetUserListRequest
+	GetUserListResponse       = permissionBase.GetUserListResponse
 	LoginRequest              = permissionBase.LoginRequest
 	LoginResponse             = permissionBase.LoginResponse
 	MenuInfo                  = permissionBase.MenuInfo
@@ -46,6 +48,7 @@ type (
 	UpdatePermissionResponse  = permissionBase.UpdatePermissionResponse
 	UpdateRoleRequest         = permissionBase.UpdateRoleRequest
 	UpdateRoleResponse        = permissionBase.UpdateRoleResponse
+	UserInfo                  = permissionBase.UserInfo
 
 	UserBase interface {
 		// CreateUser 创建用户

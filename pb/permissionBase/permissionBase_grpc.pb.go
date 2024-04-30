@@ -30,6 +30,7 @@ const (
 	PermissionBase_GetRoleList_FullMethodName       = "/permissionBase.PermissionBase/GetRoleList"
 	PermissionBase_SetMenuPermission_FullMethodName = "/permissionBase.PermissionBase/SetMenuPermission"
 	PermissionBase_SetRoleMenu_FullMethodName       = "/permissionBase.PermissionBase/SetRoleMenu"
+	PermissionBase_GetUserList_FullMethodName       = "/permissionBase.PermissionBase/GetUserList"
 	PermissionBase_SetUserRole_FullMethodName       = "/permissionBase.PermissionBase/SetUserRole"
 )
 
@@ -59,6 +60,8 @@ type PermissionBaseClient interface {
 	SetMenuPermission(ctx context.Context, in *SetMenuPermissionRequest, opts ...grpc.CallOption) (*SetMenuPermissionResponse, error)
 	// SetRoleMenu 设置角色菜单
 	SetRoleMenu(ctx context.Context, in *SetRoleMenuRequest, opts ...grpc.CallOption) (*SetRoleMenuResponse, error)
+	// GetUserList 获取用户列表
+	GetUserList(ctx context.Context, in *GetUserListRequest, opts ...grpc.CallOption) (*GetUserListResponse, error)
 	// SetUserRole 设置用户角色
 	SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*SetUserRoleResponse, error)
 }
@@ -170,6 +173,15 @@ func (c *permissionBaseClient) SetRoleMenu(ctx context.Context, in *SetRoleMenuR
 	return out, nil
 }
 
+func (c *permissionBaseClient) GetUserList(ctx context.Context, in *GetUserListRequest, opts ...grpc.CallOption) (*GetUserListResponse, error) {
+	out := new(GetUserListResponse)
+	err := c.cc.Invoke(ctx, PermissionBase_GetUserList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *permissionBaseClient) SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*SetUserRoleResponse, error) {
 	out := new(SetUserRoleResponse)
 	err := c.cc.Invoke(ctx, PermissionBase_SetUserRole_FullMethodName, in, out, opts...)
@@ -205,6 +217,8 @@ type PermissionBaseServer interface {
 	SetMenuPermission(context.Context, *SetMenuPermissionRequest) (*SetMenuPermissionResponse, error)
 	// SetRoleMenu 设置角色菜单
 	SetRoleMenu(context.Context, *SetRoleMenuRequest) (*SetRoleMenuResponse, error)
+	// GetUserList 获取用户列表
+	GetUserList(context.Context, *GetUserListRequest) (*GetUserListResponse, error)
 	// SetUserRole 设置用户角色
 	SetUserRole(context.Context, *SetUserRoleRequest) (*SetUserRoleResponse, error)
 	mustEmbedUnimplementedPermissionBaseServer()
@@ -246,6 +260,9 @@ func (UnimplementedPermissionBaseServer) SetMenuPermission(context.Context, *Set
 }
 func (UnimplementedPermissionBaseServer) SetRoleMenu(context.Context, *SetRoleMenuRequest) (*SetRoleMenuResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRoleMenu not implemented")
+}
+func (UnimplementedPermissionBaseServer) GetUserList(context.Context, *GetUserListRequest) (*GetUserListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserList not implemented")
 }
 func (UnimplementedPermissionBaseServer) SetUserRole(context.Context, *SetUserRoleRequest) (*SetUserRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetUserRole not implemented")
@@ -461,6 +478,24 @@ func _PermissionBase_SetRoleMenu_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PermissionBase_GetUserList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionBaseServer).GetUserList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PermissionBase_GetUserList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionBaseServer).GetUserList(ctx, req.(*GetUserListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PermissionBase_SetUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SetUserRoleRequest)
 	if err := dec(in); err != nil {
@@ -529,6 +564,10 @@ var PermissionBase_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetRoleMenu",
 			Handler:    _PermissionBase_SetRoleMenu_Handler,
+		},
+		{
+			MethodName: "GetUserList",
+			Handler:    _PermissionBase_GetUserList_Handler,
 		},
 		{
 			MethodName: "SetUserRole",

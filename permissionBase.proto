@@ -412,6 +412,53 @@ message SetRoleMenuResponse {
 
 }
 
+// 获取用户列表的请求
+message GetUserListRequest {
+  // 登录名.
+  string username = 1;
+  // 昵称.
+  string nickname = 2;
+  // 状态.
+  UserState state = 3;
+  // 页码.
+  int64 page = 4;
+  // 每页数量.
+  int64 page_size = 5;
+}
+
+// 性别的枚举
+enum GenderEnum {
+  GENDER_UNKNOWN = 0; // 未知
+  GENDER_MALE = 1; // 男
+  GENDER_FEMALE = 2; // 女
+}
+
+// 用户信息
+message UserInfo {
+  // 用户ID.
+  int64 id = 1;
+  // 登录名.
+  string username = 2;
+  // 昵称.
+  string nickname = 3;
+  // 手机号.
+  string mobile = 4;
+  // 邮箱.
+  string email = 5;
+  // 性别.
+  GenderEnum gender = 6;
+  // 状态.
+  UserState state = 7;
+  // 创建时间.
+  string created_at = 8;
+}
+
+// 获取用户列表的响应
+message GetUserListResponse {
+  repeated UserInfo list = 1;
+  PageInfo page = 2;
+}
+
 // 设置用户角色的请求
 message SetUserRoleRequest {
   // 角色ID.
@@ -448,6 +495,8 @@ service PermissionBase {
   rpc SetMenuPermission(SetMenuPermissionRequest) returns(SetMenuPermissionResponse);
   // SetRoleMenu 设置角色菜单
   rpc SetRoleMenu(SetRoleMenuRequest) returns(SetRoleMenuResponse);
+  // GetUserList 获取用户列表
+  rpc GetUserList(GetUserListRequest) returns(GetUserListResponse);
   // SetUserRole 设置用户角色
   rpc SetUserRole(SetUserRoleRequest) returns(SetUserRoleResponse);
 }

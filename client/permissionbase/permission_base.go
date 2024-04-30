@@ -27,6 +27,8 @@ type (
 	GetPermissionListResponse = permissionBase.GetPermissionListResponse
 	GetRoleListRequest        = permissionBase.GetRoleListRequest
 	GetRoleListResponse       = permissionBase.GetRoleListResponse
+	GetUserListRequest        = permissionBase.GetUserListRequest
+	GetUserListResponse       = permissionBase.GetUserListResponse
 	LoginRequest              = permissionBase.LoginRequest
 	LoginResponse             = permissionBase.LoginResponse
 	MenuInfo                  = permissionBase.MenuInfo
@@ -46,6 +48,7 @@ type (
 	UpdatePermissionResponse  = permissionBase.UpdatePermissionResponse
 	UpdateRoleRequest         = permissionBase.UpdateRoleRequest
 	UpdateRoleResponse        = permissionBase.UpdateRoleResponse
+	UserInfo                  = permissionBase.UserInfo
 
 	PermissionBase interface {
 		// CreateMenu 创建菜单
@@ -70,6 +73,8 @@ type (
 		SetMenuPermission(ctx context.Context, in *SetMenuPermissionRequest, opts ...grpc.CallOption) (*SetMenuPermissionResponse, error)
 		// SetRoleMenu 设置角色菜单
 		SetRoleMenu(ctx context.Context, in *SetRoleMenuRequest, opts ...grpc.CallOption) (*SetRoleMenuResponse, error)
+		// GetUserList 获取用户列表
+		GetUserList(ctx context.Context, in *GetUserListRequest, opts ...grpc.CallOption) (*GetUserListResponse, error)
 		// SetUserRole 设置用户角色
 		SetUserRole(ctx context.Context, in *SetUserRoleRequest, opts ...grpc.CallOption) (*SetUserRoleResponse, error)
 	}
@@ -149,6 +154,12 @@ func (m *defaultPermissionBase) SetMenuPermission(ctx context.Context, in *SetMe
 func (m *defaultPermissionBase) SetRoleMenu(ctx context.Context, in *SetRoleMenuRequest, opts ...grpc.CallOption) (*SetRoleMenuResponse, error) {
 	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
 	return client.SetRoleMenu(ctx, in, opts...)
+}
+
+// GetUserList 获取用户列表
+func (m *defaultPermissionBase) GetUserList(ctx context.Context, in *GetUserListRequest, opts ...grpc.CallOption) (*GetUserListResponse, error) {
+	client := permissionBase.NewPermissionBaseClient(m.cli.Conn())
+	return client.GetUserList(ctx, in, opts...)
 }
 
 // SetUserRole 设置用户角色
