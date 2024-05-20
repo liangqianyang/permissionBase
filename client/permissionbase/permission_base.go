@@ -21,6 +21,8 @@ type (
 	CreateRoleResponse        = permissionBase.CreateRoleResponse
 	CreateUserRequest         = permissionBase.CreateUserRequest
 	CreateUserResponse        = permissionBase.CreateUserResponse
+	DeleteUserRequest         = permissionBase.DeleteUserRequest
+	DeleteUserResponse        = permissionBase.DeleteUserResponse
 	GetMenuListRequest        = permissionBase.GetMenuListRequest
 	GetMenuListResponse       = permissionBase.GetMenuListResponse
 	GetPermissionListRequest  = permissionBase.GetPermissionListRequest
@@ -48,6 +50,8 @@ type (
 	UpdatePermissionResponse  = permissionBase.UpdatePermissionResponse
 	UpdateRoleRequest         = permissionBase.UpdateRoleRequest
 	UpdateRoleResponse        = permissionBase.UpdateRoleResponse
+	UpdateUserRequest         = permissionBase.UpdateUserRequest
+	UpdateUserResponse        = permissionBase.UpdateUserResponse
 	UserInfo                  = permissionBase.UserInfo
 
 	PermissionBase interface {

@@ -61,6 +61,38 @@ message CreateUserResponse {
   int64 id = 1;
 }
 
+// 更新用户的请求
+message UpdateUserRequest {
+  // 用户ID.
+  int64 id = 1;
+  // 用户名.
+  optional string username = 2;
+  // 昵称.
+  optional string nickname = 3;
+  // 密码.
+  optional string password = 4;
+  // 手机号.
+  optional string mobile = 5;
+  // 邮箱.
+  optional string email = 6;
+  // 性别.
+  UserGender gender = 7;
+  // 状态.
+  UserState state = 8;
+}
+
+// 更新用户的响应
+message UpdateUserResponse {}
+
+// 删除用户的请求
+message DeleteUserRequest {
+  // 用户ID.
+  repeated int64 id = 1;
+}
+
+// 删除用户的响应
+message DeleteUserResponse {}
+
 // 登陆的请求
 message LoginRequest {
   // 用户名.
@@ -504,6 +536,10 @@ service PermissionBase {
 service UserBase {
   // CreateUser 创建用户
   rpc CreateUser(CreateUserRequest) returns(CreateUserResponse);
+  // UpdateUser 更新用户
+  rpc UpdateUser(UpdateUserRequest) returns(UpdateUserResponse);
+  // DeleteUser 删除用户
+  rpc DeleteUser(DeleteUserRequest) returns(DeleteUserResponse);
   // Login 登录
   rpc Login(LoginRequest) returns(LoginResponse);
 }

@@ -28,6 +28,18 @@ func (s *UserBaseServer) CreateUser(ctx context.Context, in *permissionBase.Crea
 	return l.CreateUser(in)
 }
 
+// UpdateUser 更新用户
+func (s *UserBaseServer) UpdateUser(ctx context.Context, in *permissionBase.UpdateUserRequest) (*permissionBase.UpdateUserResponse, error) {
+	l := userbaselogic.NewUpdateUserLogic(ctx, s.svcCtx)
+	return l.UpdateUser(in)
+}
+
+// DeleteUser 删除用户
+func (s *UserBaseServer) DeleteUser(ctx context.Context, in *permissionBase.DeleteUserRequest) (*permissionBase.DeleteUserResponse, error) {
+	l := userbaselogic.NewDeleteUserLogic(ctx, s.svcCtx)
+	return l.DeleteUser(in)
+}
+
 // Login 登录
 func (s *UserBaseServer) Login(ctx context.Context, in *permissionBase.LoginRequest) (*permissionBase.LoginResponse, error) {
 	l := userbaselogic.NewLoginLogic(ctx, s.svcCtx)

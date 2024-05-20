@@ -21,6 +21,8 @@ type (
 	CreateRoleResponse        = permissionBase.CreateRoleResponse
 	CreateUserRequest         = permissionBase.CreateUserRequest
 	CreateUserResponse        = permissionBase.CreateUserResponse
+	DeleteUserRequest         = permissionBase.DeleteUserRequest
+	DeleteUserResponse        = permissionBase.DeleteUserResponse
 	GetMenuListRequest        = permissionBase.GetMenuListRequest
 	GetMenuListResponse       = permissionBase.GetMenuListResponse
 	GetPermissionListRequest  = permissionBase.GetPermissionListRequest
@@ -48,11 +50,17 @@ type (
 	UpdatePermissionResponse  = permissionBase.UpdatePermissionResponse
 	UpdateRoleRequest         = permissionBase.UpdateRoleRequest
 	UpdateRoleResponse        = permissionBase.UpdateRoleResponse
+	UpdateUserRequest         = permissionBase.UpdateUserRequest
+	UpdateUserResponse        = permissionBase.UpdateUserResponse
 	UserInfo                  = permissionBase.UserInfo
 
 	UserBase interface {
 		// CreateUser 创建用户
 		CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+		// UpdateUser 更新用户
+		UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
+		// DeleteUser 删除用户
+		DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 		// Login 登录
 		Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	}
@@ -72,6 +80,18 @@ func NewUserBase(cli zrpc.Client) UserBase {
 func (m *defaultUserBase) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	client := permissionBase.NewUserBaseClient(m.cli.Conn())
 	return client.CreateUser(ctx, in, opts...)
+}
+
+// UpdateUser 更新用户
+func (m *defaultUserBase) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+	client := permissionBase.NewUserBaseClient(m.cli.Conn())
+	return client.UpdateUser(ctx, in, opts...)
+}
+
+// DeleteUser 删除用户
+func (m *defaultUserBase) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
+	client := permissionBase.NewUserBaseClient(m.cli.Conn())
+	return client.DeleteUser(ctx, in, opts...)
 }
 
 // Login 登录
